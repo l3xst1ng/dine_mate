@@ -16,7 +16,7 @@ CORS(app)
 with app.app_context():
     db.create_all()
 
-@app.route('/reservation', methods=['POST'])
+@app.route('/create_reservation', methods=['POST'])
 def create_reservation():
     data = request.get_json()
     name = data.get('name')
