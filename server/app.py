@@ -16,6 +16,8 @@ CORS(app)
 with app.app_context():
     db.create_all()
 
+
+# creating reservation
 @app.route('/create_reservation', methods=['POST'])
 def create_reservation():
     data = request.get_json()
@@ -53,11 +55,14 @@ def create_reservation():
 
 
 
-
+# updating reservation
 @app.route('/reservation/<int:id>', methods=['PUT'])
 def update_reservation(id):
     data = request.get_json()
-    reservation = Reservation.query.get_or_404(id)
+    reservation = Reservation.query.filter_by(id=id).first()
+
+    if reservation is None:
+        return jsonify({'message': 'Reservation not found'}), 404
 
     if 'name' in data:
         reservation.customer.name = data['name']
@@ -77,18 +82,45 @@ def update_reservation(id):
     return jsonify({'message': 'Reservation updated successfully'}), 200
 
 
+
+
+# getting reservation by id
 @app.route('/reservation/<int:id>', methods=['GET'])
 def get_reservation(id):
-    reservation = Reservation.query.get_or_404(id)
+    reservation = Reservation.query.filter_by(id=id).first()
+    if reservation is None:
+        return jsonify({'message': 'Reservation not found'}), 404
+
     serialized_reservation = reservation.to_dict()
     return jsonify(serialized_reservation), 200
 
 
-@app.route('/restaurant/<int:id>', methods=['GET'])
+
+# getting reservation by a restaurant id
+@app.route('/restaurant/<int:id>/reservations', methods=['GET'])
 def get_restaurant_reservations(id):
-    restaurant = Restaurant.query.get_or_404(id)
+    restaurant = Restaurant.query.filter_by(id=id).first()
+    if restaurant is None:
+        return jsonify({'message': 'Restaurant not found'}), 404
+
     reservations = [reservation.to_dict() for reservation in restaurant.reservations]
     return jsonify(reservations), 200
+
+
+
+# deleting reservation
+@app.route('/reservation/<int:id>', methods=['DELETE'])
+def delete_reservation(id):
+    reservation = Reservation.query.filter_by(id=id).first()
+    if reservation is None:
+        return jsonify({'message': 'Reservation not found'}), 404
+    
+    ReservationTable.query.filter_by(reservation_id=reservation.id).delete()
+    
+    db.session.delete(reservation)
+    db.session.commit()
+    
+    return jsonify({'message': 'Reservation deleted successfully'}), 200
 
 
 if __name__ == "__main__":

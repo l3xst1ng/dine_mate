@@ -85,7 +85,8 @@ Establishes the relationship between reservations and tables, ensuring bookings 
 ## Entity-Relationship Diagram (ERD)
 
 The following diagram shows the relationships between the tables
-!
+
+![ERD](/Screenshot%20from%202024-07-09%2018-40-56.png)
 
 
 ## Technologies Used
