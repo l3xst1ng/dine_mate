@@ -50,7 +50,7 @@ class Reservation(db.Model, SerializerMixin):
     __tablename__ = 'reservation'
     id = db.Column(db.Integer, primary_key=True)
     reservation_time = db.Column(db.Date, nullable=False)
-    number_gests = db.Column(db.Integer, nullable=False)
+    number_guests = db.Column(db.Integer, nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
     table_id = db.Column(db.Integer, db.ForeignKey('table.id'), nullable=False)
