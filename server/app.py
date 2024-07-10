@@ -21,7 +21,7 @@ with app.app_context():
     db.create_all()
 
 
-    
+
 @app.route('/restaurants', methods=['GET', 'POST'])
 def restaurants():
     if request.method == 'GET':
@@ -29,10 +29,12 @@ def restaurants():
         for restaurant in Restaurant.query.all():
             restaurant_dict = restaurant.to_dict(rules=('-reservations',))
             restaurants.append(restaurant_dict)
-        response = make_response(
-                restaurants, 200
-            )
-        return response
+        if len(restaurants) == 0:
+            return jsonify({"Message": "There are no restaurants"})
+        else:
+            return make_response(
+                    jsonify(restaurants), 200
+                )
     
     elif request.method=='POST':
         data = request.get_json()
@@ -44,10 +46,9 @@ def restaurants():
         db.session.add(new_restaurant)
         db.session.commit()
         restaurant_dict=new_restaurant.to_dict()
-        response=make_response(
-            restaurant_dict, 201
+        return make_response(
+            jsonify(restaurant_dict), 201
         )
-        return response
     
 
 # creating reservation
@@ -59,6 +60,7 @@ def create_reservation():
     contact = data.get('contact')
     reservation_time_str = data.get('reservation_time')
     number_guests = data.get('number_guests')
+    table_id = data.get('table_id')
 
     reservation_time = datetime.strptime(reservation_time_str, '%Y-%m-%d')
 
@@ -71,12 +73,14 @@ def create_reservation():
         number_guests=number_guests,
         customer_id=customer.id,
         restaurant_id=1,
+        table_id=table_id
     )
     db.session.add(reservation)
     db.session.commit()
 
     reservation_table = ReservationTable(
         reservation_id=reservation.id,
+        table_id=table_id
     )
     db.session.add(reservation_table)
     db.session.commit()
