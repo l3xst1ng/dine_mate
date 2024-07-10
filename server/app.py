@@ -41,14 +41,11 @@ def restaurants():
 
         new_restaurant = Restaurant(
             name = data.get("name"),
-            location = data.get("location"),
+            location = data.get("location")
         )
         db.session.add(new_restaurant)
         db.session.commit()
-        restaurant_dict=new_restaurant.to_dict()
-        return make_response(
-            jsonify(restaurant_dict), 201
-        )
+        return jsonify({"Message": "Restaurant added successfuly"})
     
 
 # creating reservation
