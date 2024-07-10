@@ -86,7 +86,7 @@ Establishes the relationship between reservations and tables, ensuring bookings 
 
 The following diagram shows the relationships between the tables
 
-![ERD](/Screenshot%20from%202024-07-09%2018-40-56.png)
+![ERD](/Screenshot%20from%202024-07-10%2015-00-30.png)
 
 
 ## Technologies Used

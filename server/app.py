@@ -5,7 +5,7 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 from datetime import datetime
-from models import db, Restaurant, Customer, Reservation, ReservationTable, Table
+from models import db, Restaurant, Customer, Reservation, ReservationTable
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dine_mate.db'
@@ -20,37 +20,7 @@ CORS(app)
 with app.app_context():
     db.create_all()
 
-@app.route('/tables', methods=['GET', 'POST'])
-def tables():
-    if request.method == 'GET':
-        tables = []
-        for table in Table.query.all():
-            table_dict = table.to_dict(rules=('-reservations',))
-            tables.append(table_dict)
-        response = make_response(
-                tables, 200
-            )
-        return response
-    
-    elif request.method=='POST':
-        data = request.get_json()
-        table_number = data.get("table_number")
-        capacity = data.get("capacity")
-        
-        if not table_number or not capacity:
-            return make_response(jsonify({"error": "table_number and capacity are required"}), 400)
 
-        new_table = Table(
-            table_number=table_number,
-            capacity=capacity
-        )
-        db.session.add(new_table)
-        db.session.commit()
-        table_dict=new_table.to_dict()
-        response=make_response(
-            table_dict, 201
-        )
-        return response
     
 @app.route('/restaurants', methods=['GET', 'POST'])
 def restaurants():
@@ -79,6 +49,7 @@ def restaurants():
         )
         return response
     
+
 # creating reservation
 @app.route('/create_reservation', methods=['POST'])
 def create_reservation():
@@ -88,7 +59,6 @@ def create_reservation():
     contact = data.get('contact')
     reservation_time_str = data.get('reservation_time')
     number_guests = data.get('number_guests')
-    table_id = data.get('table_id')
 
     reservation_time = datetime.strptime(reservation_time_str, '%Y-%m-%d')
 
@@ -101,14 +71,12 @@ def create_reservation():
         number_guests=number_guests,
         customer_id=customer.id,
         restaurant_id=1,
-        table_id=table_id
     )
     db.session.add(reservation)
     db.session.commit()
 
     reservation_table = ReservationTable(
         reservation_id=reservation.id,
-        table_id=table_id
     )
     db.session.add(reservation_table)
     db.session.commit()
