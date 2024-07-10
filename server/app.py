@@ -33,9 +33,16 @@ def tables():
         return response
     
     elif request.method=='POST':
+        data = request.get_json()
+        table_number = data.get("table_number")
+        capacity = data.get("capacity")
+        
+        if not table_number or not capacity:
+            return make_response(jsonify({"error": "table_number and capacity are required"}), 400)
+
         new_table = Table(
-            table_number = request.form.get("table_number"),
-            capacity=request.form.get("capacity"),
+            table_number=table_number,
+            capacity=capacity
         )
         db.session.add(new_table)
         db.session.commit()
@@ -58,9 +65,11 @@ def restaurants():
         return response
     
     elif request.method=='POST':
+        data = request.get_json()
+
         new_restaurant = Restaurant(
-            name = request.form.get("name"),
-            location = request.form.get("location"),
+            name = data.get("name"),
+            location = data.get("location"),
         )
         db.session.add(new_restaurant)
         db.session.commit()
@@ -150,7 +159,7 @@ def get_reservation(id):
 
 
 # getting reservation by a restaurant id
-@app.route('/restaurant/<int:id>/reservations', methods=['GET'])
+@app.route('/restaurant/<int:id>', methods=['GET'])
 def get_restaurant_reservations(id):
     restaurant = Restaurant.query.filter_by(id=id).first()
     if restaurant is None:

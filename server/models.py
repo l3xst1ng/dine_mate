@@ -14,11 +14,10 @@ class Restaurant(db.Model, SerializerMixin):
     __tablename__ = 'restaurant'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    image = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(200), nullable=False)
 
     reservations = db.relationship('Reservation', back_populates='restaurant', lazy=True)
-    serialize_rules = ('-reservations.restaurant',)
+    serialize_rules = ('-reservations',)
 
    
 
@@ -41,7 +40,7 @@ class Table(db.Model, SerializerMixin):
     capacity = db.Column(db.Integer, nullable=False)
 
     reservations = db.relationship('ReservationTable', back_populates='table', lazy=True)
-    serialize_rules = ('-reservations.table',)
+    serialize_rules = ('-reservations',)
 
 
  
@@ -50,7 +49,7 @@ class Reservation(db.Model, SerializerMixin):
     __tablename__ = 'reservation'
     id = db.Column(db.Integer, primary_key=True)
     reservation_time = db.Column(db.Date, nullable=False)
-    number_guests = db.Column(db.Integer, nullable=False)
+    number_guests = db.Column(db.Integer,  nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
     table_id = db.Column(db.Integer, db.ForeignKey('table.id'), nullable=False)
