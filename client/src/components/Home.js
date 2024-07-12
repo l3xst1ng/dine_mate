@@ -33,7 +33,7 @@ const HomePage = () => {
     };
 
     updateGreeting();
-    const greetingInterval = setInterval(updateGreeting, 60000); // Update every minute
+    const greetingInterval = setInterval(updateGreeting, 60000); // Update greeting every minute
 
     // Rotate testimonials
     const testimonialInterval = setInterval(() => {
@@ -49,6 +49,8 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+
+
       {/* Hero section */}
       <div className="hero-section">
         <div className="hero-grid">
@@ -88,6 +90,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+{/* Hero section 2 */}
 
       <section className="how-it-works">
         <h2>Simple Steps to Your Next Great Meal</h2>
@@ -133,6 +137,9 @@ const HomePage = () => {
         <button className="cta-button">Claim Offer</button>
       </section>
 
+{/* Trust Indicators section */}
+
+
       {/* <section className="trust-indicators">
         <p>Trusted by over 1000 diners</p>
         <p>Featured in DishiKenya as 'The Go-To Reservation App'</p>
@@ -156,7 +163,7 @@ const HomePage = () => {
 
 
 
-
+{/* Final cta section */}
 
       <section className="final-cta">
         <h2>Ready for your next unforgettable dining experience?</h2>
