@@ -71,11 +71,11 @@ function Reservation() {
               </div>
               <div className="content__button">
                 <Link to={`/Edit/${reservation.id}`}>
-                  <button type="submit" className="submit-btn">Edit</button>
+                  <button type="submit" className="submit-btn-edit">Edit</button>
                 </Link>
 
                 <div>
-                  <button type="submit" className="submit-btn delete" onClick={() => handleDelete(reservation.id)}>Delete</button>
+                  <button type="submit" className="submit-btn-delete" onClick={() => handleDelete(reservation.id)}>Delete</button>
                 </div>
               </div>
             </div>
