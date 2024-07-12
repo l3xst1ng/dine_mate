@@ -9,6 +9,7 @@ function Navbar() {
         <div className="navbar-logo">
           <Link to="/">DineMate</Link>
         </div>
+        {/* Link Routes */}
         <ul className="navbar-links">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
