@@ -18,7 +18,7 @@ const Restaurants = () => {
     const newRestaurant = {
       id: restaurants.length + 1,
       ...values,
-      // Note To All: description and image are included here but won't be stored in our database
+      // Note To Team: description and image are included here but won't be stored in our database. We can do way with also.
     };
     setRestaurants([...restaurants, newRestaurant]);
     resetForm();
@@ -44,6 +44,7 @@ const Restaurants = () => {
         ))}
       </div>
 
+{/* Restaurant Form Field */}
       <Formik
         initialValues={{ name: '', location: '', description: '', image: '' }}
         validationSchema={validationSchema}
