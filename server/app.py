@@ -65,7 +65,7 @@ def create_reservation():
 
     reservation_date = datetime.strptime(reservation_date_str, '%Y-%m-%d').date()
 
-    # Retrieve restaurant ID based on restaurant name
+  
     customer = Customer(name=name, email=email, contact=contact)
     db.session.add(customer)
     db.session.commit()
@@ -104,9 +104,9 @@ def update_reservation(id):
         reservation.customer.email = data['email']
     if 'contact' in data:
         reservation.customer.contact = data['contact']
-    if 'reservation_time' in data:  # Ensure this matches the key in your JSON data
+    if 'reservation_time' in data: 
         reservation.reservation_time = datetime.strptime(data['date'], '%Y-%m-%d').date()
-    if 'guest' in data:  # Ensure this matches the key in your JSON data
+    if 'guest' in data: 
         reservation.number_guests = data['guest']
 
     db.session.commit()
@@ -116,20 +116,7 @@ def update_reservation(id):
 
 
 
-
-# getting reservation by id
-@app.route('/reservation/<int:id>', methods=['GET'])
-def get_reservation(id):
-    reservation = Reservation.query.filter_by(id=id).first()
-    if reservation is None:
-        return jsonify({'message': 'Reservation not found'}), 404
-
-    serialized_reservation = reservation.to_dict()
-    return jsonify(serialized_reservation), 200
-
-
-
-# getting reservation by a restaurant id
+# getting all reservation by restaurant id
 @app.route('/restaurant/<int:id>', methods=['GET'])
 def get_restaurant_reservations(id):
     restaurant = Restaurant.query.filter_by(id=id).first()
@@ -138,6 +125,19 @@ def get_restaurant_reservations(id):
 
     reservations = [reservation.to_dict() for reservation in restaurant.reservations]
     return jsonify(reservations), 200
+
+
+
+# getting reservation by id
+@app.route('/reservation/<int:id>', methods=['GET'])
+def get_reservation(id):
+    print(id)
+    reservation = Reservation.query.filter_by(id=id).first()
+    if reservation is None: 
+        return jsonify({'message': 'Reservation not found'}), 404
+
+    serialized_reservation = reservation.to_dict()
+    return jsonify(serialized_reservation), 200
 
 
 

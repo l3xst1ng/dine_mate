@@ -21,13 +21,15 @@ function EditReservation() {
   useEffect(() => {
     const fetchReservation = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5555/restaurant/${id}`);
+        const response = await fetch(`http://127.0.0.1:5555/reservation/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
         const data = await response.json();
-        if (data.length > 0) {
-          const reservationData = data[0];
+        console.log(data);
+      
+            console.log(data);
+          const reservationData = data;
           setName(reservationData.customer?.name);
           setEmail(reservationData.customer?.email);
           setContact(reservationData.customer?.contact);
@@ -35,9 +37,7 @@ function EditReservation() {
           setRestaurant(reservationData.restaurant?.name);
           setGuest(reservationData.number_guests);
           
-        } else {
-          console.log('No reservation data found');
-        }
+       
       } catch (error) {
         console.error('Error fetching data:', error);
       }
