@@ -19,7 +19,7 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
-    // Simulate booking count increase
+    // Simulating booking count increase
     const bookingInterval = setInterval(() => {
       setBookingCount(prevCount => prevCount + 1);
     }, 5000);
