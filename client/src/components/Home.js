@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaClock, FaStar, FaGift, FaCog } from 'react-icons/fa';
 import backgroundImage from '../assets/images/Cover.png';
-import './Home.css';
+// import './Home.css';
 
 const HomePage = () => {
   const [bookingCount, setBookingCount] = useState(9850);
