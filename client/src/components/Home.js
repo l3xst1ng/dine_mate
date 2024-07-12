@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaClock, FaStar, FaGift, FaCog, FaSearch, FaCalendarAlt, FaCheck, FaUtensils } from 'react-icons/fa';
 import backgroundImage from '../assets/images/Cover.png';
 import './Home.css';
+import './About.css';
 
 const HomePage = () => {
   const [bookingCount, setBookingCount] = useState(1500);
