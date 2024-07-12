@@ -7,6 +7,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Restaurants from './components/Restaurants';
 import BookReservationForm from './components/BookReservationForm';
+import Reservation from './components/Reservation';
+import EditReservation from './components/EditReservation';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/restaurants" element={<Restaurants />} />
             <Route path="/book" element={<BookReservationForm />} />
+            <Route path="/Reservation/:id" element={<Reservation />} />
+            <Route path="/Edit/:id" element={<EditReservation />} />
           </Routes>
         </main>
         <Footer />
