@@ -1,3 +1,4 @@
+
 # Standard library imports
 
 # Remote library imports
@@ -55,29 +56,32 @@ def create_reservation():
     name = data.get('name')
     email = data.get('email')
     contact = data.get('contact')
-    reservation_time_str = data.get('reservation_time')
-    number_guests = data.get('number_guests')
-    table_id = data.get('table_id')
+    reservation_date_str = data.get('date')
+    number_guests = data.get('guest')
+    restaurant_name = data.get('restaurant')
+    print(data,name,email,contact,reservation_date_str, number_guests,restaurant_name)
+   
+    if reservation_date_str is None:
+        return jsonify({'message': 'date is messing'}), 404
 
-    reservation_time = datetime.strptime(reservation_time_str, '%Y-%m-%d')
+    reservation_date = datetime.strptime(reservation_date_str, '%Y-%m-%d').date()
 
+    # Retrieve restaurant ID based on restaurant name
     customer = Customer(name=name, email=email, contact=contact)
     db.session.add(customer)
     db.session.commit()
 
     reservation = Reservation(
-        reservation_time=reservation_time,
+        reservation_time=reservation_date,
         number_guests=number_guests,
         customer_id=customer.id,
-        restaurant_id=1,
-        table_id=table_id
+        restaurant_id=restaurant_name,
     )
     db.session.add(reservation)
     db.session.commit()
 
     reservation_table = ReservationTable(
         reservation_id=reservation.id,
-        table_id=table_id
     )
     db.session.add(reservation_table)
     db.session.commit()
@@ -105,8 +109,6 @@ def update_reservation(id):
         reservation.reservation_time = datetime.strptime(data['reservation_time'], '%Y-%m-%d')
     if 'number_guests' in data:
         reservation.number_guests = data['number_guests']
-    if 'table_id' in data:
-        reservation.table_id = data['table_id']
 
     db.session.commit()
 
