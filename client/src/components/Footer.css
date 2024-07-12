@@ -1,5 +1,5 @@
 .footer {
-    background-color: #fdf395;
+    background-color: #fdddb7;
     color: #333333;
     padding: 0rem 0 1rem;
   }
@@ -63,6 +63,7 @@
     border-top: 1px solid #555;
   }
   
+  /* media queries */
   @media (max-width: 768px) {
     .footer-content {
       flex-direction: column;
