@@ -3,6 +3,7 @@
 .restaurant-container {
     background-color: #FFF5E6;
     padding: 20px;
+    margin-top: 200px;
     font-family: Arial, sans-serif;
   }
   
@@ -87,3 +88,13 @@
   .add-button:hover {
     background-color: #E85A2A;
   }
+
+
+  /* .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 24px;
+    color: #FF6B35;
+  } */
