@@ -93,7 +93,7 @@ def create_reservation():
 @app.route('/reservation/<int:id>', methods=['PUT'])
 def update_reservation(id):
     data = request.get_json()
-    reservation = Reservation.query.filter_by(id=id).first()
+    reservation = Reservation.query.get(id)
 
     if reservation is None:
         return jsonify({'message': 'Reservation not found'}), 404
@@ -104,14 +104,15 @@ def update_reservation(id):
         reservation.customer.email = data['email']
     if 'contact' in data:
         reservation.customer.contact = data['contact']
-    if 'reservation_time' in data:
-        reservation.reservation_time = datetime.strptime(data['reservation_time'], '%Y-%m-%d')
-    if 'number_guests' in data:
-        reservation.number_guests = data['number_guests']
+    if 'reservation_time' in data:  # Ensure this matches the key in your JSON data
+        reservation.reservation_time = datetime.strptime(data['date'], '%Y-%m-%d').date()
+    if 'guest' in data:  # Ensure this matches the key in your JSON data
+        reservation.number_guests = data['guest']
 
     db.session.commit()
 
     return jsonify({'message': 'Reservation updated successfully'}), 200
+
 
 
 
