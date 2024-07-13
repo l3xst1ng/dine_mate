@@ -8,7 +8,7 @@ from datetime import datetime
 from models import db, Restaurant, Customer, Reservation, ReservationTable
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dine_mate.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dine_mate_3hmx_user:ZdJtURJw7t35cd1sdssy6tCcJ39xKNy1@dpg-cq9dlrbv2p9s73ci1380-a.oregon-postgres.render.com/dine_mate_3hmx'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
