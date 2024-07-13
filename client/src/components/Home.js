@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaClock, FaStar, FaGift, FaCog, FaSearch, FaCalendarAlt, FaCheck, FaUtensils } from 'react-icons/fa';
+import { FaClock, FaStar, FaGift, FaCog, FaSearch, FaCalendarAlt, FaCheck, FaUtensils, FaArrowRight  } from 'react-icons/fa';
 import backgroundImage from '../assets/images/Cover.png';
+import goToAppAward from '../assets/images/Go-to-app.png';
+import foodIndustryAward from '../assets/images/Foodindustryinnovation.png';
+
+
 import './Home.css';
-import './About.css';
+
 
 const HomePage = () => {
   const [bookingCount, setBookingCount] = useState(1500);
@@ -60,11 +64,11 @@ const HomePage = () => {
             <span className="greeting">{greeting}!</span>
             <h1>Your Perfect Table Awaits</h1>
             <h2 className="secondary-headline">Discover, Book, and Dine with Ease</h2>
-            <p>Effortless reservations at your favorite restaurants</p>
+            <p className="secondary-subheadline">Effortless reservations at your favorite restaurants</p>
             <Link to="/restaurants" className="cta-button pulse">Find a Table</Link>
             <div className="social-proof">
               <span>{bookingCount.toLocaleString()}+</span>
-              <p>Happy Clients Served</p>
+              <p className='socialproof-header'>Happy Clients Served</p>
             </div>
 
             <div className="hero-benefits">
@@ -117,10 +121,16 @@ const HomePage = () => {
       </section>
       
       <section className="featured-restaurants">
-        <h2>Explore Local Favorites</h2>
-        <p>From cozy cafes to fine dining, find the perfect spot for any occasion</p>
-        <Link to="/restaurants" className="secondary-cta">View All Restaurants</Link>
-      </section>
+  <div className="featured-card">
+    <FaUtensils className="featured-icon" />
+    <h2>Explore Local Favorites</h2>
+    <p>From cozy cafes to fine dining, find the perfect spot for any occasion</p>
+    <Link to="/restaurants" className="view-all-btn">
+      View All Restaurants
+      <FaArrowRight className="arrow-icon" />
+    </Link>
+  </div>
+</section>
 
       <section className="testimonial">
         <h2>What Our Users Say</h2>
@@ -135,34 +145,32 @@ const HomePage = () => {
       <section className="special-offer">
         <h2>New to DineEase?</h2>
         <p>Enjoy 20% off your first reservation</p>
-        <button className="cta-button">Claim Offer</button>
+        {/* <button className="cta-button"></button> */}
+        <Link to="/book" className="cta-button">Claim Offer</Link>
       </section>
 
 {/* Trust Indicators section */}
 
 
-      {/* <section className="trust-indicators">
-        <p>Trusted by over 1000 diners</p>
-        <p>Featured in DishiKenya as 'The Go-To Reservation App'</p>
-      </section> */}
-
-<section className="trust-indicators"> 
-  <h2 className="trust-indicators-heading">Proven Excellence</h2>
-        <div className="indicator">
-          <img src="https://via.placeholder.com/50x50" alt="Restaurant Partner Logo" className="logo" />
-          <p>Partnered with <strong>TopRestaurants</strong></p>
-        </div>
-        <div className="indicator">
-          <img src="https://via.placeholder.com/50x50" alt="Award Logo" className="logo" />
-          <p>Awarded <strong>Best Reservation App 2023</strong></p>
-        </div>
-        <div className="indicator">
-          <img src="https://via.placeholder.com/50x50" alt="Media Logo" className="logo" />
-          <p>Featured in <strong>Foodie Magazine</strong> as 'The Go-To Reservation App'</p>
-        </div>
-      </section>
-
-
+<section className="trust-indicators">
+  <h2 className="trust-indicators-heading">Award-Winning Excellence</h2>
+  <div className="awards-container">
+    <div className="award">
+    <img src={goToAppAward} alt="Food Magazine Award" className="award-badge" />
+      <p>The Go-To Restaurant Reservation App</p>
+      <span className="award-year">2021</span>
+    </div>
+    <div className="award">
+    <img src={foodIndustryAward} alt="Best Food Industry Innovation Award" className="award-badge" />
+      <p>Best Food Industry Innovation</p>
+      <span className="award-year">2023</span>
+    </div>
+  </div>
+  <div className="additional-trust">
+    <p><strong>Trusted by over 1000 diners</strong></p>
+    <p><strong> Exclusive partnerships with over 500 top-rated restaurants </strong></p>
+  </div>
+</section>
 
 {/* Final cta section */}
 

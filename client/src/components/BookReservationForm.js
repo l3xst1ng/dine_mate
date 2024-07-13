@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import './BookReservationForm.css';
+import { FaUtensils, FaClock, FaCheckCircle, FaInfoCircle, FaTshirt, FaUtensilSpoon } from 'react-icons/fa';
 
 function BookReservationForm() {
     const [name, setName] = useState('');
@@ -83,59 +83,75 @@ function BookReservationForm() {
     };
 
     return (
-        <div className="container">
-            <form onSubmit={reservation} className="form-container">
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-                {successMessage && <p className="success-message">{successMessage}</p>}
+        <div className="reservation-page">
+            <div className="reservation-header">
+                <h1>Reserve Your Perfect Dining Experience</h1>
+                <p>Effortless bookings at top-rated restaurants. Enjoy exclusive perks and create memorable moments with DineMate.</p>
+            </div>
+            
+            <div className="reservation-content">
+                <div className="form-section">
+                    <h2><FaUtensils /> Create Reservation</h2>
+                    <form onSubmit={reservation} className="form-container">
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        {successMessage && <p className="success-message">{successMessage}</p>}
 
-                <p className='text-head'>Create Reservation</p>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="name">Name:</label>
+                                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="email">Email:</label>
+                                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="contact">Contact:</label>
+                                <input type="tel" id="contact" value={contact} onChange={(e) => setContact(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="date">Date:</label>
+                                <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="restaurant">Restaurant:</label>
+                                <select id="restaurant" value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
+                                    <option value="">Select a restaurant</option>
+                                    {restaurantsList.map((restaurant) => (
+                                        <option key={restaurant.id} value={restaurant.id}>{restaurant.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="guests">Guests:</label>
+                                <input type="number" id="guests" name="guests" value={guest} onChange={(e) => setGuest(e.target.value)} />
+                            </div>
+                        </div>
+
+                        <button type="submit" className="submit-btn">Book Now</button>
+                    </form>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                
+                <div className="info-section">
+                    <div className="dining-tips">
+                        <h2><FaClock /> Dining Tips</h2>
+                        <ul>
+                            <li><FaCheckCircle /> Arrive on time for your reservation</li>
+                            <li><FaInfoCircle /> Inform the restaurant of any dietary restrictions in advance</li>
+                            <li><FaTshirt /> Check the dress code before you go</li>
+                            <li><FaUtensilSpoon /> Be open to trying the chef's recommendations</li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="contact">Contact:</label>
-                    <input type="tel" value={contact} onChange={(e) => setContact(e.target.value)} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="date">Date:</label>
-                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="restaurant">Restaurant:</label>
-                    <select value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
-                        <option value="">Select a restaurant</option>
-                        {restaurantsList.map((restaurant) => (
-                            <option key={restaurant.id} value={restaurant.id}>
-                                {restaurant.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="guests">Guests:</label>
-                    <input
-                        type="number"
-                        value={guest}
-                        onChange={(e) => setGuest(e.target.value)}
-                        id="guests"
-                        name="guests"
-                    
-                    />
-                </div>
-                <div className="form-group">
-                    <button type="submit" className="submit-btn">
-                        Submit
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     );
 }
 
 export default BookReservationForm;
-
