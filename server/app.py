@@ -8,7 +8,7 @@ from datetime import datetime
 from models import db, Restaurant, Customer, Reservation, ReservationTable
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dine_mate_vgpb_user:fduymV2T4i9NNurVf9ZjMNcJTjaOPRdT@dpg-cq9c5e2ju9rs73b3p1u0-a.oregon-postgres.render.com/dine_mate_vgpb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dine_mate.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
@@ -55,32 +55,29 @@ def create_reservation():
     name = data.get('name')
     email = data.get('email')
     contact = data.get('contact')
-    reservation_date_str = data.get('date')
-    number_guests = data.get('guest')
-    restaurant_name = data.get('restaurant')
-    print(data,name,email,contact,reservation_date_str, number_guests,restaurant_name)
-   
-    if reservation_date_str is None:
-        return jsonify({'message': 'date is messing'}), 404
+    reservation_time_str = data.get('reservation_time')
+    number_guests = data.get('number_guests')
+    table_id = data.get('table_id')
 
-    reservation_date = datetime.strptime(reservation_date_str, '%Y-%m-%d').date()
+    reservation_time = datetime.strptime(reservation_time_str, '%Y-%m-%d')
 
-  
     customer = Customer(name=name, email=email, contact=contact)
     db.session.add(customer)
     db.session.commit()
 
     reservation = Reservation(
-        reservation_time=reservation_date,
+        reservation_time=reservation_time,
         number_guests=number_guests,
         customer_id=customer.id,
-        restaurant_id=restaurant_name,
+        restaurant_id=1,
+        table_id=table_id
     )
     db.session.add(reservation)
     db.session.commit()
 
     reservation_table = ReservationTable(
         reservation_id=reservation.id,
+        table_id=table_id
     )
     db.session.add(reservation_table)
     db.session.commit()
@@ -93,7 +90,7 @@ def create_reservation():
 @app.route('/reservation/<int:id>', methods=['PUT'])
 def update_reservation(id):
     data = request.get_json()
-    reservation = Reservation.query.get(id)
+    reservation = Reservation.query.filter_by(id=id).first()
 
     if reservation is None:
         return jsonify({'message': 'Reservation not found'}), 404
@@ -104,10 +101,12 @@ def update_reservation(id):
         reservation.customer.email = data['email']
     if 'contact' in data:
         reservation.customer.contact = data['contact']
-    if 'reservation_time' in data: 
-        reservation.reservation_time = datetime.strptime(data['date'], '%Y-%m-%d').date()
-    if 'guest' in data: 
-        reservation.number_guests = data['guest']
+    if 'reservation_time' in data:
+        reservation.reservation_time = datetime.strptime(data['reservation_time'], '%Y-%m-%d')
+    if 'number_guests' in data:
+        reservation.number_guests = data['number_guests']
+    if 'table_id' in data:
+        reservation.table_id = data['table_id']
 
     db.session.commit()
 
@@ -116,7 +115,19 @@ def update_reservation(id):
 
 
 
-# getting all reservation by restaurant id
+# getting reservation by id
+@app.route('/reservation/<int:id>', methods=['GET'])
+def get_reservation(id):
+    reservation = Reservation.query.filter_by(id=id).first()
+    if reservation is None:
+        return jsonify({'message': 'Reservation not found'}), 404
+
+    serialized_reservation = reservation.to_dict()
+    return jsonify(serialized_reservation), 200
+
+
+
+# getting reservation by a restaurant id
 @app.route('/restaurant/<int:id>', methods=['GET'])
 def get_restaurant_reservations(id):
     restaurant = Restaurant.query.filter_by(id=id).first()
@@ -125,19 +136,6 @@ def get_restaurant_reservations(id):
 
     reservations = [reservation.to_dict() for reservation in restaurant.reservations]
     return jsonify(reservations), 200
-
-
-
-# getting reservation by id
-@app.route('/reservation/<int:id>', methods=['GET'])
-def get_reservation(id):
-    print(id)
-    reservation = Reservation.query.filter_by(id=id).first()
-    if reservation is None: 
-        return jsonify({'message': 'Reservation not found'}), 404
-
-    serialized_reservation = reservation.to_dict()
-    return jsonify(serialized_reservation), 200
 
 
 
