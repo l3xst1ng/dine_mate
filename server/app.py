@@ -55,29 +55,32 @@ def create_reservation():
     name = data.get('name')
     email = data.get('email')
     contact = data.get('contact')
-    reservation_time_str = data.get('reservation_time')
-    number_guests = data.get('number_guests')
-    table_id = data.get('table_id')
+    reservation_date_str = data.get('date')
+    number_guests = data.get('guest')
+    restaurant_name = data.get('restaurant')
+    print(data,name,email,contact,reservation_date_str, number_guests,restaurant_name)
+   
+    if reservation_date_str is None:
+        return jsonify({'message': 'date is messing'}), 404
 
-    reservation_time = datetime.strptime(reservation_time_str, '%Y-%m-%d')
+    reservation_date = datetime.strptime(reservation_date_str, '%Y-%m-%d').date()
 
+  
     customer = Customer(name=name, email=email, contact=contact)
     db.session.add(customer)
     db.session.commit()
 
     reservation = Reservation(
-        reservation_time=reservation_time,
+        reservation_time=reservation_date,
         number_guests=number_guests,
         customer_id=customer.id,
-        restaurant_id=1,
-        table_id=table_id
+        restaurant_id=restaurant_name,
     )
     db.session.add(reservation)
     db.session.commit()
 
     reservation_table = ReservationTable(
         reservation_id=reservation.id,
-        table_id=table_id
     )
     db.session.add(reservation_table)
     db.session.commit()
@@ -90,7 +93,7 @@ def create_reservation():
 @app.route('/reservation/<int:id>', methods=['PUT'])
 def update_reservation(id):
     data = request.get_json()
-    reservation = Reservation.query.filter_by(id=id).first()
+    reservation = Reservation.query.get(id)
 
     if reservation is None:
         return jsonify({'message': 'Reservation not found'}), 404
@@ -101,12 +104,10 @@ def update_reservation(id):
         reservation.customer.email = data['email']
     if 'contact' in data:
         reservation.customer.contact = data['contact']
-    if 'reservation_time' in data:
-        reservation.reservation_time = datetime.strptime(data['reservation_time'], '%Y-%m-%d')
-    if 'number_guests' in data:
-        reservation.number_guests = data['number_guests']
-    if 'table_id' in data:
-        reservation.table_id = data['table_id']
+    if 'reservation_time' in data: 
+        reservation.reservation_time = datetime.strptime(data['date'], '%Y-%m-%d').date()
+    if 'guest' in data: 
+        reservation.number_guests = data['guest']
 
     db.session.commit()
 
@@ -115,19 +116,7 @@ def update_reservation(id):
 
 
 
-# getting reservation by id
-@app.route('/reservation/<int:id>', methods=['GET'])
-def get_reservation(id):
-    reservation = Reservation.query.filter_by(id=id).first()
-    if reservation is None:
-        return jsonify({'message': 'Reservation not found'}), 404
-
-    serialized_reservation = reservation.to_dict()
-    return jsonify(serialized_reservation), 200
-
-
-
-# getting reservation by a restaurant id
+# getting all reservation by restaurant id
 @app.route('/restaurant/<int:id>', methods=['GET'])
 def get_restaurant_reservations(id):
     restaurant = Restaurant.query.filter_by(id=id).first()
@@ -136,6 +125,19 @@ def get_restaurant_reservations(id):
 
     reservations = [reservation.to_dict() for reservation in restaurant.reservations]
     return jsonify(reservations), 200
+
+
+
+# getting reservation by id
+@app.route('/reservation/<int:id>', methods=['GET'])
+def get_reservation(id):
+    print(id)
+    reservation = Reservation.query.filter_by(id=id).first()
+    if reservation is None: 
+        return jsonify({'message': 'Reservation not found'}), 404
+
+    serialized_reservation = reservation.to_dict()
+    return jsonify(serialized_reservation), 200
 
 
 
