@@ -43,6 +43,9 @@ function Reservation() {
 
   return (
     <div className="reservation-container">
+        <div>
+        <p className='head'>Reservation</p>
+      </div>
       <main className="cd__main">
         <div className="profile-page">
           {reservations.map((reservation) => (
