@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -22,13 +21,6 @@ const imageMap = {
 
 const Restaurants = () => {
   const [restaurants, setRestaurants] = useState(initialRestaurants);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   // Simulate loading delay
-  //   const timer = setTimeout(() => setIsLoading(false), 1000);
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Restaurant name is required'),
@@ -37,18 +29,43 @@ const Restaurants = () => {
     image: Yup.string().required('Image is required'),
   });
 
-  const handleAddRestaurant = (values, { resetForm }) => {
-    const newRestaurant = {
-      id: restaurants.length + 1,
-      ...values,
-    };
-    setRestaurants([...restaurants, newRestaurant]);
-    resetForm();
+  const handleAddRestaurant = async (values, { resetForm }) => {
+    try {
+      console.log(values);
+      const response = await fetch('http://127.0.0.1:5555/restaurants', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add restaurant');
+      }
+      const newRestaurant = await response.json();
+      setRestaurants([...restaurants, newRestaurant]);
+      resetForm();
+    } catch (error) {
+      console.error('Error adding restaurant:', error);
+    }
   };
 
-  // if (isLoading) {
-  //   return <div className="loading">Loading...</div>;
-  // }
+  const reservation = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5555/restaurants');
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      setRestaurants(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    reservation();
+  }, []);
 
   return (
     <div className="restaurant-container">
