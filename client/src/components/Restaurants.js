@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Restaurants.css';
 import { initialRestaurants } from '../data/restaurantData';
+import { Link } from 'react-router-dom'
 
 // Import all images
 import serenityLogo from '../assets/images/Serenity.png';
@@ -72,11 +73,13 @@ const Restaurants = () => {
       <div className="restaurant-grid">
         {restaurants.map((restaurant) => (
           <div key={restaurant.id} className="restaurant-card">
-            <img 
+          <Link to={`/Reservation/${restaurant.id}`}>
+          <img 
               src={imageMap[restaurant.image] || coverImage} 
               alt={restaurant.name} 
               className="restaurant-logo"
             />
+          </Link>
             <div className="restaurant-info">
               <h3 className="restaurant-name">{restaurant.name}</h3>
               <p className="restaurant-location">{restaurant.location}</p>
