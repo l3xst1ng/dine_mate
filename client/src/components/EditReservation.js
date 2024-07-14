@@ -21,7 +21,7 @@ function EditReservation() {
   useEffect(() => {
     const fetchReservation = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5555/reservation/${id}`);
+        const response = await fetch(`https://dine-mate.onrender.com/reservation/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -53,7 +53,7 @@ function EditReservation() {
 
   const fetchRestaurants = async () => {
       try {
-          const response = await fetch('http://127.0.0.1:5555/restaurants');
+          const response = await fetch('https://dine-mate.onrender.com/restaurants');
           if (!response.ok) {
               throw new Error('Failed to fetch restaurants');
           }
@@ -93,7 +93,7 @@ function EditReservation() {
       };
 
       try {
-          const response = await fetch(`http://127.0.0.1:5555/reservation/${id}`, {
+          const response = await fetch(`https://dine-mate.onrender.com/reservation/${id}`, {
               method: 'PUT',
               headers: {
                   'Content-Type': 'application/json',

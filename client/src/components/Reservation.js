@@ -9,7 +9,7 @@ function Reservation() {
   useEffect(() => {
     const fetchReservation = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5555/restaurant/${id}`);
+        const response = await fetch(`https://dine-mate.onrender.com/restaurant/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -29,7 +29,7 @@ function Reservation() {
 
   const handleDelete = async (reservationId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5555/reservation/${reservationId}`, {
+      const response = await fetch(`https://dine-mate.onrender.com/reservation/${reservationId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

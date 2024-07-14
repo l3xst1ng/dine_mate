@@ -32,7 +32,7 @@ const Restaurants = () => {
   const handleAddRestaurant = async (values, { resetForm }) => {
     try {
       console.log(values);
-      const response = await fetch('http://127.0.0.1:5555/restaurants', {
+      const response = await fetch('https://dine-mate.onrender.com/restaurants', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const Restaurants = () => {
 
   const reservation = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5555/restaurants');
+      const response = await fetch('https://dine-mate.onrender.com/restaurants');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }

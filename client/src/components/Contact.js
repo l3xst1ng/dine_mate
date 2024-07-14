@@ -58,15 +58,17 @@ const Contact = () => {
                 required
               ></textarea>
             </div>
-            <button type="submit" className="submit-btn">Send Message</button>
+            <button type="submit" className="submit-contact-btn">Send Message</button>
           </form>
         </div>
         <div className="contact-info">
           <h2>Contact Information</h2>
-          <p className='contact-headers'><strong>Address:</strong> 123 DineMate St, Food City, FC 12345</p>
-          <p className='contact-headers'><strong>Phone:</strong> (123) 456-7890</p>
-          <p className='contact-headers'><strong>Email:</strong> info@dinemate.com</p>
-          <p className=''><strong>Hours:</strong> Mon-Fri: 9am-5pm</p>
+
+            <p className='contact-headers'><strong>Address:</strong> <span className="contact-info">123 DineMate St, Nairobi City, FC 12345</span></p> 
+            <p className='contact-headers'><strong>Phone:</strong> <span className="contact-info">(123) 456-7890</span></p>
+            <p className='contact-headers'><strong>Email:</strong> <span className="contact-info">info@dinemate.com</span></p>
+            <p className='contact-headers'><strong>Hours:</strong> <span className="contact-info">Mon-Fri: 9am-5pm</span></p>
+
         </div>
       </div>
     </div>

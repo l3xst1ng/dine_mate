@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather&display=swap');
+
 .reservation-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -12,9 +14,19 @@
 
 .reservation-header h1 {
   color: #FF6B35; 
-  font-size: 36px;
+  font-size: 35px;
   margin-bottom: 10px;
+  margin-top: 5rem;
 }
+
+.reservation-header p {
+  color:  #333333;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  margin-top: 1.2rem;
+}
+
+
 
 .reservation-content {
   display: flex;
@@ -28,14 +40,33 @@
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 4px 20px rgba(255, 107, 53, 0.1);
+  
 }
 
-.form-section h2, .info-section h2 {
+/* .form-section h2, .info-section h2 {
   color: #FF6B35; 
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  text-align: center;
   gap: 10px;
+  font-size: 28px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-bottom: 1.5rem;
+} */
+
+.form-section h2, .info-section h2 {
+  color: #FF6B35; 
+  text-align: center;
+  font-size: 28px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-bottom: 1.5rem;
+}
+
+.form-section, .info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-row {
@@ -51,7 +82,8 @@
 label {
   display: block;
   margin-bottom: 5px;
-  color: #333;
+  color:  #000000;
+  font-size: 1rem;
 }
 
 input, select {
@@ -60,23 +92,31 @@ input, select {
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
+  width: 100%; 
+  font-weight: 600px;
+  font-family: Roboto;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   background-color: #FF6B35;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+color: #FFFFFF;
+font-size: 1.2rem;
+padding: 0.8rem 1.2rem; 
+border: none;
+border-radius: 0.3rem; 
+cursor: pointer;
+transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
   background-color: #E85A2D;
+  text-align: center;
 }
+
+
 
 .dining-tips ul {
   list-style-type: none;
@@ -86,13 +126,14 @@ input, select {
 .dining-tips li {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  font-size: 16px;
+  margin-bottom: 3rem;
+  font-size: 1.25rem;
 }
 
 .dining-tips li svg {
   margin-right: 10px;
   color: #FF6B35;
+  font-size: 1.9rem;
 }
 
 .error-message {

@@ -12,6 +12,9 @@
     text-align: center;
     color: #333;
     margin-bottom: 2rem;
+    margin-top: 3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
   }
   
   .contact-content {
@@ -35,6 +38,12 @@
     margin-bottom: 1.5rem;
   }
   
+  .contact-form h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-size: 2rem;
+    
+  }
   .form-group {
     margin-bottom: 1.5rem;
   }
@@ -42,6 +51,9 @@
   .form-group label {
     display: block;
     margin-bottom: 0.5rem;
+    color:  #000000;
+    font-size: 1.3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     
 
     
@@ -61,33 +73,51 @@
     resize: vertical;
   }
   
-  .submit-btn {
+  .submit-contact-btn {
     background-color: #FF6B35;
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: Roboto;
   }
   
-  .submit-btn:hover {
+  .submit-contact-btn:hover {
     background-color: #E85A2D;
   }
   
-  .contact-info p {
-    margin-bottom: 1rem;
-    color: #555;
-  }
+
+.contact-headers {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.contact-headers strong {
+  font-weight: bold;
+  color: #000000;
+  margin-right: 1rem;
+}
+
+.contact-info {
+  font-style: italic; 
+  color: #555555; 
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color:#003366;
+  font-weight: bold;
+}
+
+.contact-info h2{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-size: 2rem;
   
-  .contact-headers{
-   font-size:1.2rem;
-   color:#000000;
-  }
-
-
+}
 
   @media (max-width: 768px) {
     .contact-content {

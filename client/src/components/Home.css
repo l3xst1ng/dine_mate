@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   h1 {
-    font-size: 3.8rem; 
+    font-size: 3rem; 
     color: #333333;
     margin-bottom: 1rem;
     text-align: center;
@@ -67,7 +67,7 @@ h1, h2, h3, h4, h5, h6 {
   
   
   .secondary-headline {
-    font-size: 2.2rem; 
+    font-size: 1.8rem; 
     color:  #333333;
     margin-bottom: 1rem;
     margin-top: 2rem;
@@ -75,14 +75,14 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .secondary-subheadline{
-    font-size: 1.8rem; 
+    font-size: 1.5rem; 
     font-weight: 600;
     color: #333333;
     margin-bottom: 2rem;
     text-align: center;
   }
   
-  .cta-button {
+  .cta-button,.cta-button-offer {
     display: block;
     width: 200px;
     margin: 0 auto;
@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
   }
   
-  .cta-button.pulse {
+  .cta-button.pulse,.cta-button-offer{
     animation: pulse 2s infinite;
   }
   
@@ -146,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .hero-benefits h3 {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     color:  #333333;
     text-align: center;
   
@@ -165,11 +165,11 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     text-align: center;
     margin-bottom: 3.5rem;
-    margin-top: 1.8rem;
+    margin-top: 1rem;
   }
   
   .benefit-icon {
-    font-size: 4.5rem;
+    font-size: 4.2rem;
     color: #FF6B35;
     transition: transform 0.3s ease, color 0.3s ease;
   }
@@ -180,7 +180,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .benefit-item span {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: #666;
     color: #333333;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -262,7 +262,7 @@ h1, h2, h3, h4, h5, h6 {
   
   /* Heading Styles */
   h2 {
-    font-size: 2.3rem;
+    font-size: 2rem;
     margin-bottom: 2rem;
     margin-top: -2rem;
   }
@@ -279,7 +279,7 @@ h1, h2, h3, h4, h5, h6 {
   .how-it-works li h3 {
     display: flex;
     align-items: center;
-    font-size: 1.9rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
     margin-top: 1rem;
     font-weight: bold;
@@ -290,7 +290,7 @@ h1, h2, h3, h4, h5, h6 {
   .how-it-works li p {
     font-weight: 600;
     color:#000000;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
 
@@ -334,16 +334,18 @@ h1, h2, h3, h4, h5, h6 {
   
   .featured-card h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 2rem;
+    color:#000000;
     margin-bottom: 1rem;
     margin-top: .5rem;
   }
   
   .featured-card p {
     font-size: 1.5rem;
-    color: #333333;
+    color: #000000;
     margin-bottom: 2rem;
+    font-weight: 500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
   .view-all-btn {
@@ -437,7 +439,7 @@ margin-top: -2rem;
   }
   
   .trust-indicators-heading {
-    font-size: 2.8rem;
+    font-size: 2rem;
     color: #000000;
     margin-bottom: 3rem;
   }
@@ -497,7 +499,7 @@ margin-top: -2rem;
     margin-bottom: 0.75rem;
   }
 
-  .cta-button, .view-all-btn {
+  .cta-button, .view-all-btn,.cta-button-offer {
     font-family: Roboto;
     /* font-weight: 500; */
     text-transform: uppercase;

@@ -15,11 +15,11 @@ const HomePage = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const testimonials = [
-    { quote: "Using DineMate has been a game-changer for our date nights. The ease of booking and the special perks for members have made dining out enjoyable and stress-free!” ", author: "Halley" },
-    { quote: "DineEase made our anniversary dinner so special. We got the best table without any hassle!", author: "Sarah Mungai" },
-    { quote: "I've been using DineEase for several months now, and it's the best way to book restaurants in the city. Highly recommended!", author: "John" },
-    { quote: "DineMate made booking dinner so effortless! I love how I can browse through top restaurants and secure a table in just a few taps. It’s my go-to app for dining out!”", author: "John " },
-    { quote: "DineMate made booking dinner so effortless! I love how I can browse through top restaurants and secure a table in just a few taps. It’s my go-to app for dining out!”", author: "John " },
+    { quote: "'Using DineMate has been a game-changer for our date nights. The ease of booking and the special perks for members have made dining out enjoyable and stress-free!' ", author: "Halley K." },
+    { quote: "'DineMate made our anniversary dinner so special. We got the best table without any hassle!", author: "Sarah Mungai'" },
+    { quote: "'I've been using DineMate for several months now, and it's the best way to book restaurants in the city. Highly recommended!'", author: "John First" },
+    { quote: "'DineMate made booking dinner so effortless! I love how I can browse through top restaurants and secure a table in just a few taps. It’s my go-to app for dining out!'", author: "Juniper L. " },
+    { quote: "'DineMate made booking dinner so effortless! I love how I can browse through top restaurants and secure a table in just a few taps. It’s my go-to app for dining out!'", author: "Viola H. " },
     
   ];
 
@@ -96,6 +96,8 @@ const HomePage = () => {
         </div>
       </div>
 
+
+
 {/* Hero section 2 */}
 
       <section className="how-it-works">
@@ -120,6 +122,8 @@ const HomePage = () => {
         </ol>
       </section>
       
+      {/* View Restaurants Section */}
+      
       <section className="featured-restaurants">
   <div className="featured-card">
     <FaUtensils className="featured-icon" />
@@ -132,6 +136,7 @@ const HomePage = () => {
   </div>
 </section>
 
+{/* Testimonials */}
       <section className="testimonial">
         <h2>What Our Users Say</h2>
         {testimonials.map((testimonial, index) => (
@@ -142,15 +147,18 @@ const HomePage = () => {
         ))}
       </section>
 
+{/* Special offer section */}
+
       <section className="special-offer">
-        <h2>New to DineEase?</h2>
+        <h2>New to DineMate?</h2>
         <p>Enjoy 20% off your first reservation</p>
         {/* <button className="cta-button"></button> */}
-        <Link to="/book" className="cta-button">Claim Offer</Link>
+        <Link to="/book" className="cta-button-offer">Claim Offer</Link>
       </section>
 
-{/* Trust Indicators section */}
 
+
+{/* Trust Indicators section */}
 
 <section className="trust-indicators">
   <h2 className="trust-indicators-heading">Award-Winning Excellence</h2>
@@ -158,7 +166,7 @@ const HomePage = () => {
     <div className="award">
     <img src={goToAppAward} alt="Food Magazine Award" className="award-badge" />
       <p>The Go-To Restaurant Reservation App</p>
-      <span className="award-year">2021</span>
+      <span className="award-year">2024</span>
     </div>
     <div className="award">
     <img src={foodIndustryAward} alt="Best Food Industry Innovation Award" className="award-badge" />
@@ -171,6 +179,7 @@ const HomePage = () => {
     <p><strong> Exclusive partnerships with over 500 top-rated restaurants </strong></p>
   </div>
 </section>
+
 
 {/* Final cta section */}
 
