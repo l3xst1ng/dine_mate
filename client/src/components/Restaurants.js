@@ -21,7 +21,7 @@ const imageMap = {
 };
 
 const Restaurants = () => {
-  const [restaurants, setRestaurants] = useState(initialRestaurants);
+  const [restaurants, setRestaurants] = useState([]);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Restaurant name is required'),
@@ -29,6 +29,23 @@ const Restaurants = () => {
     description: Yup.string().required('Description is required'),
     image: Yup.string().required('Image is required'),
   });
+
+  const fetchRestaurants = async () => {  // Renamed for clarity
+    try {
+      const response = await fetch('https://dine-mate.onrender.com/restaurants');
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      setRestaurants(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
 
   const handleAddRestaurant = async (values, { resetForm }) => {
     try {
@@ -44,42 +61,28 @@ const Restaurants = () => {
         throw new Error('Failed to add restaurant');
       }
       const newRestaurant = await response.json();
-      setRestaurants([...restaurants, newRestaurant]);
+      setRestaurants([...restaurants, newRestaurant]);  // Update the state to include the new restaurant
       resetForm();
+      fetchRestaurants()
     } catch (error) {
       console.error('Error adding restaurant:', error);
     }
   };
 
-  const reservation = async () => {
-    try {
-      const response = await fetch('https://dine-mate.onrender.com/restaurants');
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = await response.json();
-      setRestaurants(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
 
-  useEffect(() => {
-    reservation();
-  }, []);
 
   return (
     <div className="restaurant-container">
       <div className="restaurant-grid">
         {restaurants.map((restaurant) => (
           <div key={restaurant.id} className="restaurant-card">
-          <Link to={`/Reservation/${restaurant.id}`}>
-          <img 
-              src={imageMap[restaurant.image] || coverImage} 
-              alt={restaurant.name} 
-              className="restaurant-logo"
-            />
-          </Link>
+            <Link to={`/Reservation/${restaurant.id}`}>
+              <img 
+                src={imageMap[restaurant.image] || coverImage} 
+                alt={restaurant.name} 
+                className="restaurant-logo"
+              />
+            </Link>
             <div className="restaurant-info">
               <h3 className="restaurant-name">{restaurant.name}</h3>
               <p className="restaurant-location">{restaurant.location}</p>
