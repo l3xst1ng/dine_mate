@@ -39,13 +39,18 @@ def restaurants():
     elif request.method=='POST':
         data = request.get_json()
 
+
+        existing_restaurant = Restaurant.query.filter_by(name=data.get("name")).first()
+        if existing_restaurant:
+            return jsonify({"Message": "Restaurant already exists"}), 400
+
         new_restaurant = Restaurant(
             name = data.get("name"),
             location = data.get("location")
         )
         db.session.add(new_restaurant)
         db.session.commit()
-        return jsonify({"Message": "Restaurant added successfuly"})
+        return jsonify({"Message": "Restaurant added successfully"}), 201
     
 
 # creating reservation

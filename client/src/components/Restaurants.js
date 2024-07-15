@@ -22,6 +22,8 @@ const imageMap = {
 
 const Restaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Restaurant name is required'),
@@ -49,25 +51,37 @@ const Restaurants = () => {
 
   const handleAddRestaurant = async (values, { resetForm }) => {
     try {
-      console.log(values);
-      const response = await fetch('https://dine-mate.onrender.com/restaurants', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to add restaurant');
-      }
-      const newRestaurant = await response.json();
-      setRestaurants([...restaurants, newRestaurant]);  // Update the state to include the new restaurant
-      resetForm();
-      fetchRestaurants()
+        console.log(values);
+        const response = await fetch('http://127.0.0.1:5555/restaurants', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        });
+        if (!response.ok) {
+            const errorData = await response.json(); 
+            if (response.status === 400 && errorData.Message === 'Restaurant already exists') {
+                throw new Error('Restaurant already exists');
+            } else {
+                throw new Error('Failed to add restaurant');
+            }
+        }
+        const newRestaurant = await response.json();
+        setRestaurants([...restaurants, newRestaurant]); 
+        resetForm();
+        fetchRestaurants();
+        setSuccessMessage('Restaurant submitted successfully');
     } catch (error) {
-      console.error('Error adding restaurant:', error);
+        console.error('Error adding restaurant:', error.message); 
+        if (error.message === 'Restaurant already exists') {
+            setErrorMessage('Restaurant already exists');
+        } else {
+            setErrorMessage('Error adding restaurant');
+        }
     }
-  };
+};
+
 
 
 
@@ -99,6 +113,8 @@ const Restaurants = () => {
       >
         {({ errors, touched }) => (
           <Form className="restaurant-form">
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
             <Field name="name" placeholder="Restaurant Name" className="form-input" />
             <ErrorMessage name="name" component="div" className="error-message" />
 
