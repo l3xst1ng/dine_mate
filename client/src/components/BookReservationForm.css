@@ -156,3 +156,26 @@ transition: background-color 0.3s ease;
       gap: 0;
   }
 }
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.success-message.fade-out {
+  opacity: 0;
+}
+
+.redirect-message {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.redirect-message.show {
+  opacity: 1;
+}

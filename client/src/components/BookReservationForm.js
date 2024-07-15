@@ -1,8 +1,12 @@
+
+
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './BookReservationForm.css';
 import { FaUtensils, FaClock, FaCheckCircle, FaInfoCircle, FaTshirt, FaUtensilSpoon } from 'react-icons/fa';
 
 function BookReservationForm() {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [contact, setContact] = useState('');
@@ -12,6 +16,7 @@ function BookReservationForm() {
     const [restaurantsList, setRestaurantsList] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         fetchRestaurants();
@@ -27,6 +32,7 @@ function BookReservationForm() {
             setRestaurantsList(data);
         } catch (error) {
             console.error('Error fetching restaurants:', error);
+            setErrorMessage('Failed to load restaurants. Please try again later.');
         }
     };
 
@@ -49,6 +55,11 @@ function BookReservationForm() {
             return;
         }
 
+        setIsSubmitting(true);
+
+        const selectedRestaurant = restaurantsList.find(r => r.id === parseInt(restaurant));
+        const selectedRestaurantName = selectedRestaurant ? selectedRestaurant.name : 'Unknown Restaurant';
+
         const reservationData = {
             name,
             email,
@@ -66,19 +77,35 @@ function BookReservationForm() {
                 },
                 body: JSON.stringify(reservationData),
             });
-            if (!response.ok) {
-                throw new Error('Failed to submit reservation');
+            const data = await response.json();
+            if (response.ok) {
+                setSuccessMessage(`Reservation submitted successfully for ${selectedRestaurantName}.`);
+                setName('');
+                setEmail('');
+                setContact('');
+                setDate('');
+                setRestaurant('');
+                setGuest('');
+                
+                localStorage.setItem('lastReservationRestaurant', selectedRestaurantName);
+
+                setTimeout(() => {
+                    setSuccessMessage(prevMessage => 
+                        `${prevMessage} Redirecting to restaurants page. Please click on ${selectedRestaurantName} to view your reservation details.`
+                    );
+                }, 2000);
+
+                setTimeout(() => {
+                    navigate('/restaurants');
+                }, 5000);
+            } else {
+                throw new Error(data.message || 'Failed to submit reservation');
             }
-            setSuccessMessage('Reservation submitted successfully');
-            setName('');
-            setEmail('');
-            setContact('');
-            setDate('');
-            setRestaurant('');
-            setGuest('');
         } catch (error) {
             console.error('Error submitting reservation:', error);
             setErrorMessage('Failed to submit reservation. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -92,49 +119,51 @@ function BookReservationForm() {
             <div className="reservation-content">
                 <div className="form-section">
                     <h2><FaUtensils /> Create Reservation</h2>
-                    <form onSubmit={reservation} className="form-container">
+                    <form onSubmit={reservation} className={`form-container ${isSubmitting ? 'submitting' : ''}`}>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
                         {successMessage && <p className="success-message">{successMessage}</p>}
 
                         <div className="form-row">
                             <div className="form-group">
                                 <label htmlFor="name">Name:</label>
-                                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} disabled={isSubmitting} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="email">Email:</label>
-                                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={isSubmitting} />
                             </div>
                         </div>
 
                         <div className="form-row">
                             <div className="form-group">
                                 <label htmlFor="contact">Contact:</label>
-                                <input type="tel" id="contact" value={contact} onChange={(e) => setContact(e.target.value)} />
+                                <input type="tel" id="contact" value={contact} onChange={(e) => setContact(e.target.value)} disabled={isSubmitting} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="date">Date:</label>
-                                <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} disabled={isSubmitting} />
                             </div>
                         </div>
 
                         <div className="form-row">
                             <div className="form-group">
                                 <label htmlFor="restaurant">Restaurant:</label>
-                                <select id="restaurant" value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
+                                <select id="restaurant" value={restaurant} onChange={(e) => setRestaurant(e.target.value)} disabled={isSubmitting}>
                                     <option value="">Select a restaurant</option>
-                                    {restaurantsList.map((restaurant) => (
-                                        <option key={restaurant.id} value={restaurant.id}>{restaurant.name}</option>
+                                    {restaurantsList.map((rest) => (
+                                        <option key={rest.id} value={rest.id}>{rest.name}</option>
                                     ))}
                                 </select>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="guests">Guests:</label>
-                                <input type="number" id="guests" name="guests" value={guest} onChange={(e) => setGuest(e.target.value)} />
+                                <input type="number" id="guests" name="guests" value={guest} onChange={(e) => setGuest(e.target.value)} disabled={isSubmitting} />
                             </div>
                         </div>
 
-                        <button type="submit" className="submit-btn">Book Now</button>
+                        <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting...' : 'Book Now'}
+                        </button>
                     </form>
                 </div>
                 

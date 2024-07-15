@@ -1,104 +1,213 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather&display=swap');
+
+
 .reservation-container {
-  margin: 150px auto;
-  padding: 8px;
+  background-color: #FFF5E6;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 1rem;
 }
 
-.reservation-container .head{
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.cd__main {
-  display: flex;
-  justify-content: center;
-}
-
-.profile-page {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-}
-
-.content {
-  background-color: #fff5e66c;
-  padding:8px 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.content__title h1 {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-
-.content__description p {
-  margin: 2px 0;
-  font-size: 15px;
-}
-
-.content__item p{
-  font-size: 15px;
-}
-
-.content__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 4px;
-  margin-top: 8px;
-  padding-top: 20px;
-}
-
-.content__item {
+.reservation-header {
+  color: #FF6B35;
+  font-size: 32px;
+  margin-bottom: 20px;
   text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 2rem;
 }
 
-.content__button {
+.reservation-intro {
+  color: #000000;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 600p;
+}
+
+.reservation-intro p {
+  margin-bottom: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.reservation-summary {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.reservation-count {
+  color: #FF6B35;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.reservation-action-prompt {
+  color: #666;
+  font-size: 18px;
+}
+
+.no-reservations {
+  text-align: center;
+  font-size: 20px;
+  color: #000000;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.reservation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.reservation-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.reservation-card:hover {
+  transform: translateY(-5px);
+}
+
+.customer-name {
+  color: #FF6B35;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  margin-top: .2rem;
+}
+
+.reservation-details p {
+  margin: 10px 0;
+  color: #000000;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.3rem;
+}
+
+.reservation-actions {
   display: flex;
-  justify-content: center;
-  margin-top: 8px;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: #000000;
+}
+.reservation-action-prompt{
+  color: #000000;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
 }
 
-.submit-btn-edit {
-  background-color: #007bff;
-  color: white;
+.edit-btn, .delete-btn {
+  padding: 10px 20px;
   border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  font-family: Roboto;
 }
 
-.submit-btn-delete{
-  background-color: rgba(255, 0, 0, 0.724);
-  margin-left: 5px;
+.edit-btn {
+  background-color: #FF6B35;
   color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
+  text-decoration: none;
+  font-family: Roboto;
 }
 
-
-.submit-btn-edit:hover {
-  background-color: #0056b3;
+.edit-btn:hover {
+  background-color: #E85A2A;
 }
 
-.submit-btn-delete:hover{
-  background-color: red;
+.delete-btn {
+  background-color: #f44336;
+  color: white;
 }
 
-@media (min-width: 600px) {
-  .profile-page {
-    grid-template-columns: 1fr 1fr;
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.reservation-footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #000000;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 500px;
+}
+
+.support-link {
+  color: #FF6B35;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.support-link:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .reservation-container {
+    padding: 20px 10px;
+  }
+
+  .reservation-header {
+    font-size: 28px;
+  }
+
+  .reservation-intro {
+    font-size: 16px;
+  }
+
+  .reservation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation-count {
+    font-size: 20px;
+  }
+
+  .reservation-action-prompt {
+    font-size: 16px;
+  }
+
+  .edit-btn, .delete-btn {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }
 
-@media (min-width: 900px) {
-  .profile-page {
-    grid-template-columns: 1fr 1fr 1fr;
+@media screen and (max-width: 480px) {
+  .reservation-header {
+    font-size: 24px;
+  }
+
+  .reservation-intro {
+    font-size: 14px;
+  }
+
+  .customer-name {
+    font-size: 20px;
+  }
+
+  .reservation-details p {
+    font-size: 14px;
+  }
+
+  .reservation-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .edit-btn, .delete-btn {
+    width: 100%;
   }
 }

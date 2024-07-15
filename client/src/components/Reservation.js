@@ -1,10 +1,27 @@
+
 import React, { useEffect, useState } from 'react';
 import './Reservation.css';
 import { Link, useParams } from 'react-router-dom';
 
+// Helper functions to mask data
+const maskName = (name) => {
+  const nameParts = name.split(' ');
+  return nameParts.map(part => `${part[0]}${'*'.repeat(part.length - 1)}`).join(' ');
+};
+
+const maskEmail = (email) => {
+  const [localPart, domain] = email.split('@');
+  return `${localPart[0]}${'*'.repeat(localPart.length - 1)}@${'*'.repeat(domain.length - 4)}${domain.slice(-4)}`;
+};
+
+const maskContact = (contact) => {
+  return `${contact.slice(0, 1)}${'*'.repeat(contact.length - 3)}${contact.slice(-2)}`;
+};
+
 function Reservation() {
   const { id } = useParams();
   const [reservations, setReservations] = useState([]);
+  const [restaurantName, setRestaurantName] = useState('');
 
   useEffect(() => {
     const fetchReservation = async () => {
@@ -16,6 +33,7 @@ function Reservation() {
         const data = await response.json();
         if (data.length > 0) {
           setReservations(data);
+          setRestaurantName(data[0].restaurant.name);
         } else {
           console.log('No reservation data found');
         }
@@ -43,48 +61,47 @@ function Reservation() {
 
   return (
     <div className="reservation-container">
-        <div>
-        <p className='head'>Reservation</p>
+      <h1 className="reservation-header">Reservations at {restaurantName}</h1>
+      <div className="reservation-intro">
+        <p>Streamline your dining operations and enhance guest experiences.</p>
+        <p>Effortlessly manage bookings, optimize table turnover, and deliver exceptional service.</p>
       </div>
-      <main className="cd__main">
-        <div className="profile-page">
-          {reservations.map((reservation) => (
-            <div className="content" key={reservation.id}>
-              <div className="content__title">
-                <h1>{reservation.customer?.name}</h1>
-                <span></span>
-              </div>
-              <div className="content__description">
-                <p>Email: {reservation.customer?.email}</p>
-                <p>Contact: {reservation.customer?.contact}</p>
-              </div>
-              <div className="content__grid">
-                <div className="content__item">
-                  <span>{reservation.number_guests}</span>
-                  <p>Number Of Guests</p>
-                </div>
-                <div className="content__item">
-                  <span>{reservation.reservation_time}</span>
-                  <p>Time</p>
-                </div>
-                <div className="content__item">
-                  <span>{reservation.restaurant?.location}</span>
-                  <p>Location</p>
-                </div>
-              </div>
-              <div className="content__button">
-                <Link to={`/Edit/${reservation.id}`}>
-                  <button type="submit" className="submit-btn-edit">Edit</button>
-                </Link>
-
-                <div>
-                  <button type="submit" className="submit-btn-delete" onClick={() => handleDelete(reservation.id)}>Delete</button>
-                </div>
-              </div>
-            </div>
-          ))}
+      
+      {reservations.length === 0 ? (
+        <div className="no-reservations">
+          <p>No current reservations for this restaurant.</p>
+          <p>When bookings arrive, they'll appear here for easy management.</p>
         </div>
-      </main>
+      ) : (
+        <>
+          <div className="reservation-summary">
+            <p className="reservation-count">{reservations.length} active reservation(s)</p>
+            <p className="reservation-action-prompt">Review, modify, or cancel bookings as needed.</p>
+          </div>
+          <div className="reservation-grid">
+            {reservations.map((reservation) => (
+              <div className="reservation-card" key={reservation.id}>
+                <h2 className="customer-name">{maskName(reservation.customer?.name)}</h2>
+                <div className="reservation-details">
+                  <p><strong>Email:</strong> {maskEmail(reservation.customer?.email)}</p>
+                  <p><strong>Contact:</strong> {maskContact(reservation.customer?.contact)}</p>
+                  <p><strong>Guests:</strong> {reservation.number_guests}</p>
+                  <p><strong>Date:</strong> {new Date(reservation.reservation_time).toLocaleDateString()}</p>
+                  <p><strong>Time:</strong> {new Date(reservation.reservation_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                </div>
+                <div className="reservation-actions">
+                  <Link to={`/Edit/${reservation.id}`} className="edit-btn">Modify</Link>
+                  <button className="delete-btn" onClick={() => handleDelete(reservation.id)}>Cancel</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+      <div className="reservation-footer">
+        <p>Elevate your restaurant's efficiency with DineMate's powerful reservation management.</p>
+        <p>Questions or need assistance? <a href="/https://dine-mate-sandy.vercel.app/contact" className="support-link">Contact our support team</a>.</p>
+      </div>
     </div>
   );
 }
