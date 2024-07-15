@@ -109,9 +109,9 @@ def update_reservation(id):
         reservation.customer.email = data['email']
     if 'contact' in data:
         reservation.customer.contact = data['contact']
-    if 'reservation_time' in data: 
-        reservation.reservation_time = datetime.strptime(data['date'], '%Y-%m-%d').date()
-    if 'guest' in data: 
+    if 'reservation_time' in data:
+        reservation.reservation_time = datetime.strptime(data['reservation_time'], '%Y-%m-%d').date()
+    if 'guest' in data:
         reservation.number_guests = data['guest']
 
     db.session.commit()
