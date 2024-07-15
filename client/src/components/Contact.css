@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather&display=swap');
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-bottom: 10rem; 
+    font-family: Arial, sans-serif;
+    margin-bottom: 4rem;
+  }
+  .contact-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+  }
+  
+  .contact-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .contact-form,
+  .contact-info {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-form h2,
+  .contact-info h2 {
+    color: #FF6B35;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-form h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-size: 2rem;
+    
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color:  #000000;
+    font-size: 1.3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    
+
+    
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-group textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  .submit-contact-btn {
+    background-color: #FF6B35;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.3rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: Roboto;
+  }
+  
+  .submit-contact-btn:hover {
+    background-color: #E85A2D;
+  }
+  
+
+.contact-headers {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.contact-headers strong {
+  font-weight: bold;
+  color: #000000;
+  margin-right: 1rem;
+}
+
+.contact-info {
+  font-style: italic; 
+  color: #555555; 
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color:#003366;
+  font-weight: bold;
+}
+
+.contact-info h2{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-size: 2rem;
+  
+}
+
+  @media (max-width: 768px) {
+    .contact-content {
+      flex-direction: column;
+    }
+  }

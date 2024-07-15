@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import './Footer.css'; 
 
 function Footer() {
@@ -21,8 +23,8 @@ function Footer() {
         </div>
         <div className="footer-section contact">
           <h3>Contact Us</h3>
-          <p><i className="fas fa-envelope"></i> info@dineease.com</p>
-          <p><i className="fas fa-phone"></i> (123) 456-7890</p>
+         <p><FontAwesomeIcon icon={faEnvelope} /> info@dineease.com</p>
+<p><FontAwesomeIcon icon={faPhone} /> (123) 456-7890</p>
         </div>
       </div>
       <div className="footer-bottom">
